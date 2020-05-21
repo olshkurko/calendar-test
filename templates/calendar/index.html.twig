@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <h1>Calendar</h1>
+    </div>
+    {% for dayDate, events in data %}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                {{ dayDate }}
+                            </div>
+                            {% include 'calendar/calendar_item.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,7 @@
+    private DateTimeInterface $date;
+
+    private string $title;
+
+    private string $description;
+    
+    private string $type;
