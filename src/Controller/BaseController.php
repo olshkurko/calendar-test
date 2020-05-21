@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Services\GetData;
 use App\Services\Loader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,13 +17,14 @@ class BaseController extends AbstractController
 {
     /**
      * @Route("/", name="index")
+     * @param GetData $data
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(Loader $loader)
+    public function index(GetData $data)
     {
-        $data = $loader->load();
+        $calendar = $data->getAllData();
 
-        return $this->render('calendar/index.html.twig', ['data' => $data]);
+        return $this->render('calendar/index.html.twig', ['data' => $calendar]);
     }
 
 }

@@ -4,21 +4,32 @@
 namespace App\Services;
 
 
-use App\Entity\Birthday;
-use App\Entity\Meeting;
-use App\Entity\Order;
+use App\Factory\OrderFactory;
 use Doctrine\ORM\EntityManagerInterface;
 
 class Loader
 {
-    public function __construct(GetData $data)
+    public function __construct(EntityManagerInterface $em, DataFromApi $api, OrderFactory $factory)
     {
-        $this->data = $data;
+        $this->em = $em;
+        $this->api = $api;
+        $this->factory = $factory;
     }
 
-    public function load ()
+
+    public function getFromDB($class)
     {
-        return $this->data->getAllData();
+        return $this->em->getRepository($class)->findAll();
     }
 
+    public function getFromApi($url)
+    {
+        $orders = [];
+        $data = $this->api->get($url);
+        foreach ($data as $item) {
+            $orders[] = $this->factory->createFromApiResponse($item);
+        }
+
+        return $orders;
+    }
 }

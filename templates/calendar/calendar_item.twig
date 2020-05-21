@@ -4,7 +4,7 @@
             ({{ type }}) {{ event.title }}
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{ event.date }}</li>
+            <li class="list-group-item">{{ event.date|date('Y-m-d') }}</li>
             <li class="list-group-item">{{ event.description }}</li>
         </ul>
     </div>
